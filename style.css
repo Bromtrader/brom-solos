@@ -244,12 +244,46 @@ section{ position: relative; padding: 140px 0; }
 .hero-title{ margin:0; font-family: var(--font-display); font-weight:500; line-height:1; }
 .hero-title > span:first-child{ display:block; font-size: clamp(1.2rem, 2.4vw, 1.8rem); color: var(--text-dim); font-weight:400; margin-bottom: 6px; }
 .hero-name{
-    display:block;
-    font-size:120px;
-    color:red !important;
-    background:none !important;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  white-space: nowrap;
+
+  font-size: clamp(2.8rem, 9vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+
+  background: linear-gradient(
+    90deg,
+    #00E5FF 0%,
+    #6C63FF 50%,
+    #FF4FD8 100%
+  );
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientShift 8s ease infinite;
+
+  filter:
+    drop-shadow(0 0 10px rgba(0,229,255,.35))
+    drop-shadow(0 0 20px rgba(108,99,255,.25))
+    drop-shadow(0 0 30px rgba(255,79,216,.15));
+}
+
+.reveal-char{
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+@keyframes gradientShift{
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
    }
-.reveal-char{ display:inline-block; }
 
 .hero-sub{ font-family: var(--font-display); font-weight:500; font-size: clamp(1.2rem, 2.6vw, 1.9rem); margin: 28px 0 20px; color: var(--text); }
 .type-target{ background: linear-gradient(120deg, var(--secondary), var(--accent)); -webkit-background-clip:text; background-clip:text; color:transparent; }

@@ -375,15 +375,117 @@
   // In case GSAP finished loading after DOM ready but loader already resolved
   if (document.readyState === 'complete') { /* handled by load listener */ }
 })();
-const music = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
+/* ==========================================================================
+   Ambient Music System (added) — self-contained, fails gracefully
+   ========================================================================== */
+(function ambientMusicSystem() {
+  const STORAGE_KEY = 'ambientMusicEnabled';
+  const TARGET_VOLUME = 0.25;
+  const FADE_MS = 1000;
 
-btn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    btn.textContent = "🔊";
-  } else {
-    music.pause();
-    btn.textContent = "🎵";
+  const audio = document.getElementById('ambient-audio');
+  const btn = document.getElementById('music-toggle-btn');
+
+  // Bail out silently if markup is missing — no errors thrown.
+  if (!audio || !btn) return;
+
+  audio.volume = 0; // start silent; we fade in on play
+  let fadeTimer = null;
+  let isPlaying = false;
+
+  function clearFade() {
+    if (fadeTimer) {
+      clearInterval(fadeTimer);
+      fadeTimer = null;
+    }
   }
-});
+
+  function fadeVolume(from, to, duration, onDone) {
+    clearFade();
+    const steps = 30;
+    const stepTime = duration / steps;
+    let currentStep = 0;
+
+    fadeTimer = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+      audio.volume = Math.min(Math.max(from + (to - from) * progress, 0), 1);
+
+      if (currentStep >= steps) {
+        clearFade();
+        audio.volume = to;
+        if (typeof onDone === 'function') onDone();
+      }
+    }, stepTime);
+  }
+
+  function setPlayingUI(playing) {
+    btn.classList.toggle('is-playing', playing);
+    btn.setAttribute('aria-pressed', String(playing));
+  }
+
+  function playMusic() {
+    audio.volume = 0;
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          isPlaying = true;
+          setPlayingUI(true);
+          fadeVolume(0, TARGET_VOLUME, FADE_MS);
+          localStorage.setItem(STORAGE_KEY, 'true');
+        })
+        .catch(() => {
+          // Playback blocked or file missing — fail silently, no console errors surfaced to user.
+          isPlaying = false;
+          setPlayingUI(false);
+        });
+    }
+  }
+
+  function pauseMusic() {
+    fadeVolume(audio.volume, 0, FADE_MS, () => {
+      audio.pause();
+    });
+    isPlaying = false;
+    setPlayingUI(false);
+    localStorage.setItem(STORAGE_KEY, 'false');
+  }
+
+  function toggleMusic() {
+    if (isPlaying) {
+      pauseMusic();
+    } else {
+      playMusic();
+    }
+  }
+
+  btn.addEventListener('click', toggleMusic);
+
+  // Handle missing/broken audio file gracefully.
+  audio.addEventListener('error', () => {
+    isPlaying = false;
+    setPlayingUI(false);
+    btn.setAttribute('disabled', 'true');
+    btn.style.opacity = '0.4';
+    btn.style.cursor = 'not-allowed';
+  });
+
+  // Resume previously-enabled music on the NEXT user interaction
+  // (browsers block autoplay, so we wait for a real gesture).
+  const wasEnabled = localStorage.getItem(STORAGE_KEY) === 'true';
+
+  if (wasEnabled) {
+    const resumeOnFirstInteraction = () => {
+      playMusic();
+      document.removeEventListener('click', resumeOnFirstInteraction);
+      document.removeEventListener('keydown', resumeOnFirstInteraction);
+      document.removeEventListener('touchstart', resumeOnFirstInteraction);
+    };
+
+    document.addEventListener('click', resumeOnFirstInteraction, { once: true });
+    document.addEventListener('keydown', resumeOnFirstInteraction, { once: true });
+    document.addEventListener('touchstart', resumeOnFirstInteraction, { once: true });
+  }
+})();

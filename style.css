@@ -478,3 +478,22 @@ section{ position: relative; padding: 140px 0; }
   .hero-cta{ margin-bottom: 48px; }
   .hero-stats{ gap: 28px; }
 }
+#musicBtn{
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(20px);
+  color: #fff;
+  cursor: pointer;
+  transition: .3s;
+  z-index: 999;
+}
+
+#musicBtn:hover{
+  transform: scale(1.1);
+   }

@@ -254,9 +254,7 @@ section{ position: relative; padding: 140px 0; }
 
   -webkit-background-clip: text;
   background-clip: text;
-
-  -webkit-text-fill-color: transparent; /* ← ADD THIS */
-  color: transparent;
+  color: blue;
 
   animation: gradientShift 9s ease infinite;
    }

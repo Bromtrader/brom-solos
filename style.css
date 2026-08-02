@@ -172,8 +172,17 @@ section{ position: relative; padding: 140px 0; }
 .nav-inner{ width:100%; max-width:1320px; margin:0 auto; padding:0 32px; display:flex; align-items:center; justify-content:space-between; }
 .logo{ display:flex; align-items:center; gap:2px; font-family: var(--font-display); font-weight:700; font-size:1.3rem; }
 .logo-mark{
-  display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:10px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary)); color:#050505; margin-right:8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 14px;      /* Makes the background expand with the text */
+  height: 34px;         /* Keep the height */
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #050505;
+  margin-right: 8px;
   box-shadow: 0 0 20px rgba(108,99,255,.5);
 }
 .nav-links{ display:none; gap:36px; }

@@ -171,26 +171,52 @@ section{ position: relative; padding: 140px 0; }
 }
 .nav-inner{ width:100%; max-width:1320px; margin:0 auto; padding:0 32px; display:flex; align-items:center; justify-content:space-between; }
 .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 22px;
+    border-radius: 18px;
+
     font-family: "Orbitron", sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #00f7ff;
-    text-shadow:
-        0 0 5px #00f7ff,
-        0 0 10px #00f7ff,
-        0 0 20px #00f7ff,
-        0 0 40px #8a2eff;
-    transition: all 0.3s ease;
+
+    color: #00e5ff;
+
+    background: rgba(15, 20, 35, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(0, 229, 255, 0.3);
+
+    box-shadow:
+        0 0 10px rgba(0, 229, 255, 0.35),
+        0 0 30px rgba(138, 43, 226, 0.25),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+
+    transition: all 0.35s ease;
 }
 
 .logo:hover {
-    text-shadow:
-        0 0 8px #00f7ff,
-        0 0 16px #00f7ff,
-        0 0 32px #8a2eff,
-        0 0 64px #00f7ff;
-    transform: scale(1.05);
-   }
+    transform: translateY(-3px) scale(1.05);
+
+    border-color: #00e5ff;
+
+    box-shadow:
+        0 0 15px #00e5ff,
+        0 0 35px #00e5ff,
+        0 0 70px #8a2eff;
+}
+
+.logo span {
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+           }
 .logo-mark{
   display: inline-flex;
   align-items: center;
@@ -259,12 +285,19 @@ section{ position: relative; padding: 140px 0; }
   background: rgba(255,255,255,.03); margin-bottom: 28px;
 }
 .dot-live{ width:7px; height:7px; border-radius:50%; background: var(--success); box-shadow: 0 0 10px var(--success); animation: blink 1.8s infinite; }
-@keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } }
-.hero-title{
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+@keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } 
+.hero-title {
+    font-family: "Orbitron", sans-serif;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #00d9ff;
+
+    text-shadow:
+        0 0 8px #00d9ff,
+        0 0 16px #00d9ff,
+        0 0 32px #00d9ff,
+        0 0 64px #8a2eff;
 }
 
 .hero-intro{

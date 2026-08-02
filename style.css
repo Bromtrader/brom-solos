@@ -286,6 +286,7 @@ section{ position: relative; padding: 140px 0; }
 }
 .dot-live{ width:7px; height:7px; border-radius:50%; background: var(--success); box-shadow: 0 0 10px var(--success); animation: blink 1.8s infinite; }
 @keyframes blink{ 0%,100%{ opacity:1; } 50%{ opacity:.3; } 
+.hero-name,
 .hero-title {
     font-family: "Orbitron", sans-serif;
     font-weight: 900;

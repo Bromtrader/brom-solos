@@ -478,22 +478,94 @@ section{ position: relative; padding: 140px 0; }
   .hero-cta{ margin-bottom: 48px; }
   .hero-stats{ gap: 28px; }
 }
-#musicBtn{
+/* ==========================================================================
+   Ambient Music Button (added) — glassmorphism, cyberpunk neon
+   ========================================================================== */
+
+.music-btn {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 52px;
-  height: 52px;
-  border: none;
+  z-index: 9999;
+
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: rgba(255,255,255,.08);
-  backdrop-filter: blur(20px);
-  color: #fff;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+
+  background: rgba(20, 20, 30, 0.45);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: .3s;
-  z-index: 999;
+
+  color: #7fffff;
+  box-shadow:
+    0 0 12px rgba(0, 255, 255, 0.25),
+    0 0 24px rgba(180, 0, 255, 0.15),
+    inset 0 0 8px rgba(0, 255, 255, 0.08);
+
+  transition: transform 0.25s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-#musicBtn:hover{
-  transform: scale(1.1);
-   }
+.music-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+  border-color: rgba(180, 0, 255, 0.55);
+  box-shadow:
+    0 0 18px rgba(0, 255, 255, 0.4),
+    0 0 32px rgba(180, 0, 255, 0.3),
+    inset 0 0 10px rgba(180, 0, 255, 0.15);
+}
+
+.music-btn:active {
+  transform: translateY(0) scale(0.94);
+}
+
+.music-btn__icon {
+  width: 26px;
+  height: 26px;
+  color: inherit;
+  filter: drop-shadow(0 0 4px currentColor);
+  transition: filter 0.3s ease;
+}
+
+/* Idle state: static, dim */
+.music-btn__wave {
+  opacity: 0.85;
+}
+
+/* Playing state: subtle pulsing / glowing animation on the icon strokes */
+.music-btn.is-playing .music-btn__icon {
+  animation: musicIconPulse 1.6s ease-in-out infinite;
+}
+
+.music-btn.is-playing .music-btn__wave--2 {
+  animation: musicDotBounce 1.1s ease-in-out infinite;
+}
+
+.music-btn.is-playing .music-btn__wave--3 {
+  animation: musicDotBounce 1.1s ease-in-out infinite 0.3s;
+}
+
+@keyframes musicIconPulse {
+  0%, 100% { filter: drop-shadow(0 0 4px currentColor); }
+  50%      { filter: drop-shadow(0 0 9px currentColor); }
+}
+
+@keyframes musicDotBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-btn,
+  .music-btn__icon,
+  .music-btn__wave--2,
+  .music-btn__wave--3 {
+    animation: none !important;
+    transition: none !important;
+  }
+                   }

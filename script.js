@@ -220,12 +220,12 @@
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
-      status.textContent = 'Please fill in every field before sending.';
+      status.textContent = 'Please fill in every field before sending lil bro.';
       status.style.color = '#FF4D9D';
       return;
     }
     status.style.color = '#00FF88';
-    status.textContent = 'Message ready — connect a backend or emailto: to send this live.';
+    status.textContent = 'Message ready — but this is a concept so no backend connected';
     form.reset();
   });
 
@@ -241,7 +241,7 @@
     { label: 'Journey', href: '#experience' },
     { label: 'Services', href: '#services' },
     { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Contact', href: '254745477064' },
     { label: 'Back to top', href: '#hero' },
   ];
   function renderCmdk(filter = '') {
